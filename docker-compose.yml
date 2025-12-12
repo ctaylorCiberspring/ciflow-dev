@@ -1,7 +1,7 @@
 services:
   traefik:
     isolation: ${TRAEFIK_ISOLATION}
-    image: traefik:v2.2.0-windowsservercore-1809
+    image: ${TRAEFIK_IMAGE}
     command:
       - "--ping"
       - "--api.insecure=true"
@@ -16,8 +16,8 @@ services:
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
     volumes:
-      - source: \\.\pipe\docker_engine\
-        target: \\.\pipe\docker_engine\
+      - source: \\.\pipe\docker_engine_windows
+        target: \\.\pipe\docker_engine
         type: npipe
       - ./traefik:C:/etc/traefik
     depends_on:

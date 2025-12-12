@@ -21,8 +21,10 @@ stages:
     jobs:
       - job: Build_Solution_Job
         variables:
-          osVersion: "ltsc2019"
-          nanoserverVersion: "1809"
+          #osVersion: "ltsc2019"
+          osVersion: "ltsc2022"
+          #nanoserverVersion: "1809"
+          nanoserverVersion: "ltsc2022"
         strategy:
           matrix:
             content:
@@ -81,7 +83,7 @@ stages:
                 $env:INTERNAL_NUGET_SOURCE_USERNAME="$(INTERNAL_NUGET_SOURCE_USERNAME)"
                 $env:INTERNAL_NUGET_SOURCE="$(INTERNAL_NUGET_SOURCE)"
                 $env:INTERNAL_NUGET_SOURCE_PASSWORD="$(INTERNAL_NUGET_SOURCE_PASSWORD)"
-                $env:LTSC_NANOSERVER_VERSION="1809"
+                $env:LTSC_NANOSERVER_VERSION="ltsc2022"
 
                 docker compose -f docker-compose.build.solution.yml build $(serviceName)
                 docker compose -f docker-compose.build.solution.yml push $(serviceName)
@@ -90,10 +92,10 @@ stages:
         dependsOn: Build_Solution_Job
         strategy:
           matrix:
-            ltsc2019:
-              vmImage: "windows-2019"
-              osVersion: "ltsc2019"
-              nanoserverVersion: "1809"
+            # ltsc2019:
+            #   vmImage: "windows-2019"
+            #   osVersion: "ltsc2019"
+            #   nanoserverVersion: "1809"
             ltsc2022:
               vmImage: "windows-2022"
               osVersion: "ltsc2022"
@@ -133,7 +135,7 @@ stages:
                 $env:SOLUTION_VERSION="$(tag)"
                 $env:REGISTRY="$(REGISTRY)"
                 $env:NANOSERVER_VERSION="$(nanoserverVersion)"
-                $env:LTSC_NANOSERVER_VERSION="1809"
+                $env:LTSC_NANOSERVER_VERSION="ltsc2022"
                 $env:SITECORE_VERSION="$(SITECORE_VERSION)"
                 $filePath = 'docker/docker-compose.copy.solution.yml'
                 docker compose -f $filePath build --pull
@@ -145,20 +147,20 @@ stages:
       - job: Build_Platform
         strategy:
           matrix:
-            ltsc2019-xp0:
-              vmImage: "windows-2019"
-              osVersion: "ltsc2019"
-              nanoserverVersion: "1809"
-              docker-compose: 'docker-compose.yml'
-              docker-compose-build: 'docker-compose.build.yml'
-              topology: 'xp0'
-            ltsc2019-xp1:
-              vmImage: "windows-2019"
-              osVersion: "ltsc2019"
-              nanoserverVersion: "1809"
-              docker-compose: 'docker-compose-xp1.yml'
-              docker-compose-build: 'docker-compose-xp1.build.yml'
-              topology: 'xp1'
+            # ltsc2019-xp0:
+            #   vmImage: "windows-2019"
+            #   osVersion: "ltsc2019"
+            #   nanoserverVersion: "1809"
+            #   docker-compose: 'docker-compose.yml'
+            #   docker-compose-build: 'docker-compose.build.yml'
+            #   topology: 'xp0'
+            # ltsc2019-xp1:
+            #   vmImage: "windows-2019"
+            #   osVersion: "ltsc2019"
+            #   nanoserverVersion: "1809"
+            #   docker-compose: 'docker-compose-xp1.yml'
+            #   docker-compose-build: 'docker-compose-xp1.build.yml'
+            #   topology: 'xp1'
             ltsc2022-xp0:
               vmImage: "windows-2022"
               osVersion: "ltsc2022"

@@ -21,7 +21,8 @@ Param (
   ,
   [Parameter(
     HelpMessage = "Windows image version")]
-  [string]$WindowsVersion = "ltsc2019"
+  #[string]$WindowsVersion = "ltsc2019"
+  [string]$WindowsVersion = "ltsc2022"
   ,
   [Parameter(
     HelpMessage = "Sitecore version")]
